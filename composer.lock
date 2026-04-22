@@ -1,0 +1,97 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "0b73b4d97ab584556a8ca16a80a69887",
+    "packages": [
+        {
+            "name": "dconco/phpspa",
+            "version": "v2.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dconco/phpspa.git",
+                "reference": "a626d5d7a3498023c580438fa35776547f254d30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dconco/phpspa/zipball/a626d5d7a3498023c580438fa35776547f254d30",
+                "reference": "a626d5d7a3498023c580438fa35776547f254d30",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "app/core/Impl/Const/StateConstant.php",
+                    "app/client/Component/component.php",
+                    "app/client/Http/Redirect.php",
+                    "src/global/autoload.php"
+                ],
+                "psr-4": {
+                    "PhpSPA\\": "app/client/",
+                    "PhpSPA\\Core\\": "app/core/",
+                    "PhpSPA\\Exceptions\\": "app/exceptions/",
+                    "PhpSPA\\Interfaces\\": "app/interfaces/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Conco",
+                    "email": "me@dconco.tech",
+                    "homepage": "https://dconco.tech",
+                    "role": "Author & Maintainer"
+                },
+                {
+                    "name": "Samuel Paschalson",
+                    "email": "samuelpaschalson@gmail.com",
+                    "homepage": "https://samuel-paschalson.netlify.app",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "A component-based library for building modern, reactive user interfaces in pure PHP. Inspired by React. ✨",
+            "keywords": [
+                "SPA",
+                "component-based",
+                "component-library",
+                "jsx",
+                "php",
+                "phpspa"
+            ],
+            "support": {
+                "issues": "https://github.com/dconco/phpspa/issues",
+                "source": "https://github.com/dconco/phpspa/tree/v2.0.8"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/dconco",
+                    "type": "buy_me_a_coffee"
+                },
+                {
+                    "url": "https://github.com/dconco",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-02-20T16:33:51+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {},
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
+}
