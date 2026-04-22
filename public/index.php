@@ -5,7 +5,6 @@ declare(strict_types=1);
 $base = dirname(__DIR__);
 
 use PhpSPA\App;
-use PhpSPA\Component;
 
 require_once "$base/vendor/autoload.php";
 
@@ -13,7 +12,9 @@ $config = require "$base/config.php";
 
 
 $app = new App(require "$base/app/layout.php")
-   ->attach(new Component(fn() => '<h1>Hi</h1>'));
+   ->attach(require "$base/app/main.php")
+   ->useModule()
+   ->defaultTargetID('app');
 
 for ($i = 0; $i < count($config['scripts']); $i++) { 
    $app->script(...$config['scripts'][$i]);
