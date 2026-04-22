@@ -1,5 +1,8 @@
 <?php
 
+use function PhpSPA\Http\Redirect;
+use PhpSPA\Core\Http\HttpRequest;
+
 // ────────────── CONFIGURATION ──────────────
 
 $config = [
@@ -13,10 +16,13 @@ $config = [
 
    // --- Vite dev server URL (DEVELOPMENT ONLY). ---
    'dev_server_url' => 'http://localhost:5173',
+   'dev_url_base' => '/@dev-server'
 ];
 
 
-// ────────────── IMPLEMENTATION ──────────────
+
+
+// ────────────── PRODUCTION (ATTACH BUILT ASSETS) ──────────────
 
 if ($config['mode'] === 'production') {
    $manifest = json_decode(file_get_contents($config['manifest_file']), true);
@@ -25,8 +31,7 @@ if ($config['mode'] === 'production') {
    $mainJS = $config['assets_url'] . $entry['file'];
 
    $cssFiles = array_map(fn($css) => [
-      'content' => $config['assets_url'] . $css,
-      'name' => basename($css),
+      'content' => $config['assets_url'] . $css
    ], $entry['css'] ?? []);
 
    return [
@@ -38,27 +43,41 @@ if ($config['mode'] === 'production') {
    ];
 }
 
+
+
+
+
+// ────────────── DEVELOPMENT (HANDLE SERVING ASSETS) ──────────────
+
+// Handle Vite asset requests in development
+$devServerUrl = $config['dev_server_url'];
+$urlBase = trim($config['dev_url_base'], '/');
+
+$requestPath = ltrim(new HttpRequest()->getUri(), '/');
+
+if (strpos($requestPath, $urlBase) === 0) {
+   Redirect("$devServerUrl/$requestPath");
+}
+
+
+
+
 // In development, we load the frontend directly from the Vite dev server.
+
+
 return [
    'scripts' => [
       [
          'type' => 'module',
-         'name' => 'react-refresh',
-         'content' => fn() => <<<JS
-               import RefreshRuntime from "{$config['dev_server_url']}/@react-refresh"
-               RefreshRuntime.injectIntoGlobalHook(window)
-               window.\$RefreshReg\$ = () => {}
-               window.\$RefreshSig\$ = () => (type) => type
-               window.__vite_plugin_react_preamble_installed__ = true
-         JS,
+         'content' => "$devServerUrl/$urlBase/@vite/preamble",
       ],
       [
          'type' => 'module',
-         'content' => "{$config['dev_server_url']}/@vite/client",
+         'content' => "$devServerUrl/$urlBase/@vite/client",
       ],
       [
          'type' => 'module',
-         'content' => "{$config['dev_server_url']}/src/main.tsx",
+         'content' => "$devServerUrl/$urlBase/src/main.tsx",
       ]
    ],
    'links' => [],

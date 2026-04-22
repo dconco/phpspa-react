@@ -1,5 +1,11 @@
 {
-    "require": {
-        "dconco/phpspa": "^2.0"
-    }
+	"require": {
+		"dconco/phpspa": "^2.0"
+	},
+	"scripts": {
+		"start": [
+			"Composer\\Config::disableProcessTimeout",
+			"php -S localhost:3000 -t public"
+		]
+	}
 }
