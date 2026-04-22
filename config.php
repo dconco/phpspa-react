@@ -8,7 +8,7 @@ $config = [
    // --- Use built frontend files from the PHP public directory (PRODUCTION ONLY). ---
    'assets_url' => '/dist/',
    'dist_dir' => __DIR__ . '/public/dist',
-   'manifest_file' => __DIR__ . '/public/dist/.vite/manifest.json',
+   'manifest_file' => __DIR__ . '/public/dist/manifest.json',
    'manifest_entry' => 'src/main.tsx',
 
    // --- Vite dev server URL (DEVELOPMENT ONLY). ---
