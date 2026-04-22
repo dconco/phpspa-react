@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 $base = dirname(__DIR__);
 
-require_once "$base/vendor/autoload.php";
-
 use PhpSPA\App;
 use PhpSPA\Component;
+
+require_once "$base/vendor/autoload.php";
 
 $config = require "$base/config.php";
 
 
 
-$app = new App(require "$base/app/layout/layout.php")
+$app = new App(require "$base/app/layout.php")
    ->attach(new Component(fn() => '<h1>Hi</h1>'));
 
 for ($i = 0; $i < count($config['scripts']); $i++) { 

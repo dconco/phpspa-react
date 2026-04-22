@@ -3,7 +3,7 @@
 // ────────────── CONFIGURATION ──────────────
 
 $config = [
-   'mode' => 'production', // 'development' or 'production'
+   'mode' => 'development', // 'development' or 'production'
 
    // --- Use built frontend files from the PHP public directory (PRODUCTION ONLY). ---
    'assets_url' => '/dist/',
@@ -32,7 +32,6 @@ if ($config['mode'] === 'production') {
    return [
       'scripts' => [[
          'type' => 'module',
-         'name' => 'main_prod.tsx',
          'content' => $mainJS,
       ]],
       'links' => $cssFiles
@@ -55,14 +54,12 @@ return [
       ],
       [
          'type' => 'module',
-         'name' => 'vite-client',
          'content' => "{$config['dev_server_url']}/@vite/client",
       ],
       [
          'type' => 'module',
-         'name' => 'main_dev.tsx',
          'content' => "{$config['dev_server_url']}/src/main.tsx",
       ]
    ],
-   'styles' => [],
+   'links' => [],
 ];
