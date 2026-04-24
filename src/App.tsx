@@ -10,9 +10,7 @@ function App() {
 
 	useEffect(() => {
 		// --- update default state from php ---
-		setState('counter', state => {
-			setCount(state)
-		})
+		setState('counter', setCount)
 	}, [])
 
 	useEffect(() => {

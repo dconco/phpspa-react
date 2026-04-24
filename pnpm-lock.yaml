@@ -18,6 +18,9 @@ importers:
         specifier: ^19.2.5
         version: 19.2.5(react@19.2.5)
     devDependencies:
+      '@dconco/phpspa-vite-plugin':
+        specifier: ^1.0.1
+        version: 1.0.1(@vitejs/plugin-react@6.0.1(vite@8.0.9(@types/node@24.12.2)))(vite@8.0.9(@types/node@24.12.2))
       '@eslint/js':
         specifier: ^9.39.4
         version: 9.39.4
@@ -123,6 +126,12 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
+
+  '@dconco/phpspa-vite-plugin@1.0.1':
+    resolution: {integrity: sha512-XppsrHz4423zz0VGnUsLg6kJ3yiadCZDzVtQTMDSXnsyLLzC3WzKJ2x9npwopK9Xa4Rn5zwkMvB8Zl/OSj1bBQ==}
+    peerDependencies:
+      '@vitejs/plugin-react': ^6.0.1
+      vite: ^8.0.0
 
   '@dconco/phpspa@2.0.13':
     resolution: {integrity: sha512-wIJrtAjg4mM/SfUgJ9Pi8dtSrzfZrAi1BD64QMot48UOwlXWtTJM7yX5ICnlfIN6AkQdROETgwBWrLNXZbL3zA==}
@@ -1106,6 +1115,11 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@dconco/phpspa-vite-plugin@1.0.1(@vitejs/plugin-react@6.0.1(vite@8.0.9(@types/node@24.12.2)))(vite@8.0.9(@types/node@24.12.2))':
+    dependencies:
+      '@vitejs/plugin-react': 6.0.1(vite@8.0.9(@types/node@24.12.2))
+      vite: 8.0.9(@types/node@24.12.2)
 
   '@dconco/phpspa@2.0.13':
     dependencies:
