@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-composer create-project dconco/phpspa-react
+composer create-project dconco/phpspa-react project_name
 ```
 
 ## Architecture
@@ -44,8 +44,10 @@ Each PHP route component can inject data into the HTML that React reads on mount
 
 ```php
 <?php
+
 use PhpSPA\Component;
 use PhpSPA\Http\Request;
+
 return new Component(function(Request $request) {
    $name = $request('name', 'Dave Conco');
    $email = $request('email', 'me@dconco.tech');
