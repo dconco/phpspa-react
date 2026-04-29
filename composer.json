@@ -1,9 +1,11 @@
 {
 	"name": "dconco/phpspa-react",
 	"type": "project",
-	"description": "Run React directly with PHP - No Node.js build step required for development"
+	"description": "Run React directly with PHP - No Node.js build step required for development",
 	"prefer-stable": true,
 	"minimum-stability": "stable",
+	"license": "MIT",
+	"keywords": ["phpspa", "react", "vite"],
 	"require": {
 		"dconco/phpspa": "^2.0"
 	},

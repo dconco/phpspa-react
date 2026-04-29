@@ -1,73 +1,145 @@
-# React + TypeScript + Vite
+# PhpSPA React Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Run React directly with PHP** - No Node.js build step required for development. This template combines React + TypeScript + Vite with PHP backend in a single project, running on the same host.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+composer create-project dconco/phpspa-react
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Architecture
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This project runs **PHP and React on the same host** without CORS issues. PHP serves the HTML shell and can pass data directly to React components through the DOM.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Project Structure
+
 ```
+phpspa-react/
+├── app/              # PHP components (routes)
+│   ├── layout.php    # HTML shell with #app div
+│   ├── profile.php   # Example route with data
+│   └── default.php   # Default route
+├── public/
+│   └── index.php     # Entry point
+├── src/              # React components
+│   └── App.tsx       # Main React app
+├── config.php        # Vite/asset configuration
+└── composer.json
+```
+
+## PHP → React Data Passing
+
+Each PHP route component can inject data into the HTML that React reads on mount. This is done using `<script type="application/json">` tags inside the `#app` div.
+
+### How It Works
+
+1. **PHP renders HTML** with embedded JSON data
+2. **React mounts** and reads the JSON from the DOM
+3. **React knows the route** and has the data to initialize state
+
+### Example: Profile Route
+
+**PHP Component** (`app/profile.php`):
+
+```php
+<?php
+use PhpSPA\Component;
+use PhpSPA\Http\Request;
+return new Component(function(Request $request) {
+   $name = $request('name', 'Dave Conco');
+   $email = $request('email', 'me@dconco.tech');
+   $gender = $request('gender', 'Male');
+
+   $userData = json_encode(compact('name', 'email', 'gender'));
+
+   return <<<HTML
+      <h2>Profile Page PHP Render</h2>
+      <script type="application/json" id="profile-script">{$userData}</script>
+   HTML;
+})->route('/profile');
+```
+
+**React Component** (`src/App.tsx`):
+
+```tsx
+import { useEffect } from 'react'
+
+function App() {
+	useEffect(() => {
+		const profileScript = document.getElementById('profile-script')
+
+		if (profileScript) {
+			// This is Profile Route
+			const data = JSON.parse(profileScript.textContent!)
+			console.log('Profile data:', data)
+			// Initialize state with PHP data
+		}
+	}, [])
+
+	return <div>...</div>
+}
+```
+
+## Configuration
+
+### Development Mode
+
+In `config.php`, set `mode` to `'development'` to use Vite dev server:
+
+```php
+$config = [
+   'mode' => 'development',
+   'dev_server_url' => 'http://localhost:5173',
+   'dev_url_base' => '/@dev-server'
+];
+```
+
+### Production Mode
+
+Set `mode` to `'production'` to use built assets from `public/dist/`:
+
+```php
+$config = [
+   'mode' => 'production',
+   'assets_url' => '/dist/',
+   'dist_dir' => __DIR__ . '/public/dist',
+   'manifest_file' => __DIR__ . '/public/dist/manifest.json',
+   'manifest_entry' => 'src/main.tsx',
+];
+```
+
+## Security Warning
+
+⚠️ **Do not pass sensitive data** (passwords, secret keys, tokens) through PHP → React data passing. The JSON data is visible in the page source code and can be inspected by anyone.
+**Safe to pass:**
+
+- User display names
+- Public profile information
+- Route identifiers
+- Non-sensitive configuration
+  **Never pass:**
+- Passwords
+- API secret keys
+- Authentication tokens
+- Database credentials
+
+## State Management
+
+Use the `@dconco/phpspa` package for shared state between PHP and React:
+
+```tsx
+import { setState } from '@dconco/phpspa'
+
+// Update global state
+setState('counter', count)
+
+// Read state with callback
+setState('counter', prev => {
+	setCount(prev ?? 0)
+})
+```
+
+## License
+
+MIT - Dave Conco (dconco)

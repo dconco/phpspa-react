@@ -10,7 +10,16 @@ function App() {
 
 	useEffect(() => {
 		// --- update default state from php ---
-		setState('counter', setCount)
+		setState('counter', prev => {
+			setCount(prev ?? 0)
+		})
+
+		const profileScript = document.getElementById('profile-script')
+
+		if (profileScript) {
+			// --- This is Profile Route ---
+			alert(profileScript.textContent)
+		}
 	}, [])
 
 	useEffect(() => {

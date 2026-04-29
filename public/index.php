@@ -12,7 +12,8 @@ $config = require "$base/config.php";
 
 
 $app = new App(require "$base/app/layout.php")
-   ->attach(require "$base/app/main.php")
+   ->attach(require "$base/app/profile.php")
+   ->attach(require "$base/app/default.php")
    ->useModule()
    ->defaultTargetID('app');
 
