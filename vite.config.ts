@@ -5,10 +5,8 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-	const base = mode === 'development' ? '/@dev-server' : '/'
-
 	return {
-		base,
+		base: mode === 'development' ? '/@dev-server' : '/',
 		plugins: [react(), phpspa()],
 		publicDir: false,
 		build: {

@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "dconco/phpspa",
-            "version": "v2.0.8",
+            "version": "v2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dconco/phpspa.git",
-                "reference": "a626d5d7a3498023c580438fa35776547f254d30"
+                "reference": "ca1b99d7d3af2dcb69c355e1a3df3e4be781f764"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dconco/phpspa/zipball/a626d5d7a3498023c580438fa35776547f254d30",
-                "reference": "a626d5d7a3498023c580438fa35776547f254d30",
+                "url": "https://api.github.com/repos/dconco/phpspa/zipball/ca1b99d7d3af2dcb69c355e1a3df3e4be781f764",
+                "reference": "ca1b99d7d3af2dcb69c355e1a3df3e4be781f764",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +70,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dconco/phpspa/issues",
-                "source": "https://github.com/dconco/phpspa/tree/v2.0.8"
+                "source": "https://github.com/dconco/phpspa/tree/v2.0.9"
             },
             "funding": [
                 {
@@ -82,7 +82,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-02-20T16:33:51+00:00"
+            "time": "2026-04-25T19:45:11+00:00"
         }
     ],
     "packages-dev": [],
@@ -93,5 +93,5 @@
     "prefer-lowest": false,
     "platform": {},
     "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.6.0"
 }

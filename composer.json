@@ -1,4 +1,9 @@
 {
+	"name": "dconco/phpspa-react",
+	"type": "project",
+	"description": "Run React directly with PHP - No Node.js build step required for development"
+	"prefer-stable": true,
+	"minimum-stability": "stable",
 	"require": {
 		"dconco/phpspa": "^2.0"
 	},
